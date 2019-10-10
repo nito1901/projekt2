@@ -8,7 +8,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $names = ["Aberfeldy","Aberlour","Akashi","Ardbeg","The Macallan","The Glenrothes","Hibiki Harmony",
           "Highland Park","Longmorn","Balvenie","Glengoyne","Lagavulin","Kavalan","Oban","Auchentoshan","Caol Ila",
-          "Dalwhinnie","Glenfiddich","Glenmorangie","Talisker","Strathisla","Spirit of Hven","Reki","Nikka","Motörhead","The Glenlivet"];
+          "Dalwhinnie","Glenfiddich","Glenmorangie","Talisker","Strathisla","Spirit of Hven","Reki","Nikka","Motörhead","The Glenlivet","KUK"];
 
 $descriptions = [
                 "Nyanserad, maltig smak med fatkaraktär, inslag av ljunghonung, päron, halm, apelsinmarmelad och vanilj. Serveras vid rumstemperatur som avec.",
@@ -251,23 +251,23 @@ $products = [
              'price'=>666],
 ];
 */
-/*echo "<pre>";
-print_r($products);
-echo "</pre>"; */
 $limit = 1000;
-
 
 
 if(!isset($_GET['limit'])){
     $limit = 1000;
-    else{
-    $limit = $_GET['limit'];
+}
+    else {
+        $limit = htmlspecialchars($_GET['limit']);
+        if(!is_numeric($_GET['limit'])){
+            echo '{"error":"Input must be numeric"}';
+            die;
+        }
     }
-
-    if($limit>1000){
-        echo '{"error":"Limit must be between 1 and 1000"}';
-        die;
-    }
+        if($limit>1000){
+            echo '{"error":"Limit must be between 1 and 1000"}';
+            die;
+        }
 
 $product =  [];
 for ($i=1; $i <= $limit; $i++) {
@@ -281,7 +281,6 @@ $product = array("name"=>$names[$randName],
             "image"=>$images[$randImage],
             "price"=>$prices[$randPrice]);
 $products[] = $product;
-}
 }
 
 $json = json_encode($products,

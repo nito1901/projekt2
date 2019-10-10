@@ -40,6 +40,7 @@ echo '<input id="limit1" name="limit" type="submit" value="5">';
 echo '<input id="limit2" name="limit" type="submit" value="50">';
 echo '<input id="limit3" name="limit" type="submit" value="100">';
 echo '<input id="limit4" name="limit" type="submit" value="250">';
+echo '<input id="limit5" name="limit" type="submit" value="500">';
 echo '</form>';
 echo '</div>';
 
@@ -59,21 +60,28 @@ if(!isset($_GET['limit'])){
     }*/
 }
 //Med GET-Request. Laddar valt antal produkter
-else if(isset($_GET['limit'])){
-        $limit = $_GET['limit'];
+    else{ 
+        $limit = htmlspecialchars($_GET['limit']);
+    }
+        if(!is_numeric($limit)){
+            echo '<p class="max-produkter"><strong>Otillåtet värde.<br>Visar 10 produkter.</strong></p>';
+            $limit = 10;
+            productInfo($array, $limit);
+        }
+    
         //Begränsar limit att max visa det antal arrayen innehåller
         if($limit>count($array)){
             $limit = count($array);
                 echo '<div class="max-produkter">';       
                 echo "<p><strong>Endast $limit st produkter i lager.<br>Visar alla produkter.</strong></p>";
                 echo '</div>'; 
-                
+        
         }
         else if($limit<=count($array)){
             numberOfProducts($array, $limit);
         }
         productInfo($array, $limit); 
-    }/*
+                   /*
             //Visar antal valda produkter
             for($i=0; $i<$limit; $i++){
                 $product = $array[$i];
