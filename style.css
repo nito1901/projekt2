@@ -1,0 +1,47 @@
+.max-produkter {
+    width: 100%;
+    text-align: center;
+}
+.header {
+    text-align: center;
+}
+
+.item {
+    width: 30%;
+    margin: 20px;
+    padding: 5px;
+    text-align: center;
+
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+}
+img {
+    height: 150px;
+    display: block;
+    margin: auto;
+}
+.form {
+    padding: 15px;
+    text-align: center;
+}
+.form-container {
+    width: 100%;
+}
+input {
+    border-radius: 50%;
+    width: 50px;
+    margin: 5px;
+    background: white;
+}
+input:hover {
+    background: rgb(175, 175, 175);
+}
+input:active {
+    background: rgb(175, 175, 175);
+}
